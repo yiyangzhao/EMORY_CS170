@@ -1,0 +1,96 @@
+/*
+Yiyang Zhao  2065868 yzhao97
+I worked on this assignment alone, using only this semester's cours e materials.
+*/
+import java.util.Scanner;
+
+public class CheckCC {
+	public static int[] toArray(String s) {
+		//function which converts a string to an array
+		//function will discard non-digit characters in the string
+		//and print a warning method
+		
+		//DO NOT EDIT THIS METHOD
+
+		int[] arr = new int[s.length()];
+
+		for(int i = 0; i < s.length(); i++) {
+			char c = s.charAt(i);
+			if(!Character.isDigit(c)) {
+				System.out.println("Your credit card number contained a non-digit: " + c);
+				System.out.println("Discarding this character.");
+			} else {
+				arr[i] = Character.getNumericValue(c);
+			}
+		}
+
+		return arr;
+	}
+
+	public static int checksum(int[] a) {
+		//TODO: implement this method
+		int la = a.length; // get the length of the array
+		int validator = 0;		
+		int wsum = 0; //sum of validators		
+		for (int ii = 0; ii < la; ii++) {
+			validator = a[ii];			
+			if (ii % 2 == 0) validator = validator * 2; // Every other digit * 2
+			if (validator > 9) validator = validator % 10 + 1; // if >9 then process digit-add exchange
+			wsum = wsum + validator;
+		}
+		
+		return wsum;
+	}
+
+	public static int generateDigit(int[] a) {
+		//TODO: implement this method
+			int[] b = new int[a.length+1];	//copy the a[] to b[] but b[] has one more digit in the end
+			for (int jj=0; jj<a.length; jj++){
+				b[jj]=a[jj];
+			}	
+			for (int kk=0;kk<10;kk++){  //try to attach 0-9 for the last digit of b[] and try if work
+				b[a.length] = kk;
+				if (checksum(b) % 10 == 0) return kk;
+			}
+		return -1;
+	}
+
+
+	public static void main(String[] args) {
+		//DO NOT EDIT THIS METHOD
+
+		Scanner in = new Scanner(System.in);
+
+		//get initial value to work with
+		System.out.println("**** Welcome to the Credit Card Validator ****");
+		System.out.print("Enter a credit card number: ");
+		String s = in.next();
+	
+		//perform some basic input validation
+		while(!s.equals("exit")) {
+
+			//convert string to integer array
+			int[] arr = toArray(s);
+
+			//get the checksum for the array
+			int i = checksum(arr);
+
+			//if it is not a valid credit card number
+			if (i % 10 != 0) {
+				//print out useful info including digit needed to make it valid
+				System.out.println("\t" + s + " is not a valid credit card number.");
+				System.out.println("\tIts checksum is " + i);
+				System.out.println("\tIt needs to have the digit " + generateDigit(arr) + " appended to it.");
+			} else {  //it was a valid cc number
+				System.out.println("\t" + s + " is a valid credit card number.");
+			}
+
+			//allow the user to enter another credit card number
+			System.out.print("\nType 'exit' to quit or ");
+			System.out.println("enter another credit card number: ");
+			s = in.next();
+		}
+
+		System.out.println("Goodbye!");
+	}
+}

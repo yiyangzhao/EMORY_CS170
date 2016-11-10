@@ -1,0 +1,53 @@
+/*
+Yiyang Zhao
+yzhao97 2065868
+I worked on this assignment alone, using only this semester's course material
+*/
+public class HW5
+{
+//1
+	public static boolean disneyRide(int x)
+	{ 
+		return (((x/0.39370 > 120))&&((x/0.39370)<190));
+	}
+//2
+	public static String allLetters(String inps)
+	{ 
+		String news = "";
+		char a = '\0';
+		for (int i=0; i<=inps.length(); i++)
+		{
+			a = inps.charAt(i);
+			if (((a>=65)&&(a<=90)) || ((a>=97)&&(a<=122))) news = news + a;
+		}
+		return news;
+	}
+//3
+	public static int quesoForFishy(double m)
+	{ 
+		if (m<0) return 0; else return (((int)(m*100))/298);
+		
+	}
+//4
+	public static double trafficJam(int l, double m)
+	{ 
+		if (l>0 && m>0) return (l*m*5280.0)/15;
+		return -1.0;
+	}
+//5
+	public static int timeLeft(int t, double h)
+	{ 
+		if (t>0 && h>0 && t<h*60) return (int)(t/(h*60)*100);
+		return -1;
+	}
+//6
+	public static double daffoidils(int f, double p, double m)
+	{
+		return (Math.round((Math.ceil(f/12.0) * p -m)*100))/100;
+	}
+//main
+	public static void main(String[] args)
+	{ 
+	}
+
+}
